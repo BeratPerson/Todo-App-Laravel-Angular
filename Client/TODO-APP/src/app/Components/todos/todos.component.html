@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            <label for="new-task">Add Item</label>
+            <form #todo="ngForm" (ngSubmit)="addTodo(todo.value)">
+
+                <div style="margin-top:15px ;display: flex;justify-content: space-between;">
+                    <input type="text" name="title" class="form-control" ngModel>
+                    <button type="submit m-1" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-lg-4">
+            <h3>Todo</h3>
+            <ul>
+                <li *ngFor="let todo of todos" class="m-3"  style="padding-bottom: 25px!important;">
+                    <div style="display: flex;justify-content:space-between;align-items:center;width: 100%;"
+                        *ngIf="!todo.completed">
+                        <div style="display: flex;align-items: center;">
+                            <input type="checkbox" (click)="complateItem(todo)"
+                                style="width: 20px;height: 20px;margin-right: 10px;" [checked]="todo.completed==1">
+                            <label [ngClass]="selectedId==todo.id?'hide':'show'">{{todo.title}}</label>
+                            <input #myTitle (keydown)="updateTodo(myTitle.value,todo,$event)" [ngModel]="this.title"
+                                class="form-control" [ngClass]="selectedId==todo.id?'show':'hide'">
+                        </div>
+                        <div style="display: flex;">
+                            <button class="btn btn-danger btn-sm m-1" (click)="cencelEdit()" [ngClass]="selectedId==todo.id?'show':'hide'">x</button>
+                            <button class="btn btn-info btn-sm m-1" (click)="editTodo(todo)" [ngClass]="selectedId==todo.id?'hide':'show'">Edit</button>
+                            <button class="btn btn-danger btn-sm m-1" (click)="deleteTodo(todo)">Delete</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-lg-4">
+            <h3>Completed</h3>
+            <ul>
+                <li *ngFor="let todo of todos" class="m-3" style="padding-bottom: 25px!important;">
+                    <div style="display: flex;justify-content:space-between;align-items:center;width: 100%;"
+                        *ngIf="todo.completed">
+                        <div style="display: flex;align-items: center;">
+                            <input type="checkbox" (click)="complateItem(todo)"
+                                style="width: 20px;height: 20px;margin-right: 10px;" [checked]="todo.completed==1">
+                            <label [ngClass]="selectedId==todo.id?'hide':'show'">{{todo.title}}</label>
+                            <input #myTitle (keydown)="updateTodo(myTitle.value,todo,$event)" [ngModel]="this.title"
+                                class="form-control" [ngClass]="selectedId==todo.id?'show':'hide'">
+                        </div>
+                        <div style="display: flex;">
+                            <button class="btn btn-info btn-sm m-1" (click)="editTodo(todo)">Edit</button>
+                            <button class="btn btn-danger btn-sm m-1" (click)="deleteTodo(todo)">Delete</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
